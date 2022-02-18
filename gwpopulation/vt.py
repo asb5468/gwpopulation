@@ -97,7 +97,7 @@ class ResamplingVT(_BaseVT):
             The population parameters
         """
         mu, var = self.detection_efficiency(parameters)
-        if mu ** 2 <= 4 * self.n_events * var:
+        if mu ** 2 <= xp.maximum(4 * self.n_events * var, 30 * var):
             return np.inf
         n_effective = mu ** 2 / var
         vt_factor = mu / np.exp((3 + self.n_events) / 2 / n_effective)
