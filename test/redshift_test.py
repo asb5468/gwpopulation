@@ -1,11 +1,11 @@
 import unittest
 
+import numpy as np
 from astropy.cosmology import Planck15
 from bilby.core.prior import PriorDict, Uniform
-import numpy as np
 
-from gwpopulation.models import redshift
 from gwpopulation.cupy_utils import trapz, xp
+from gwpopulation.models import redshift
 
 
 class TestRedshift(unittest.TestCase):
@@ -46,10 +46,7 @@ class TestRedshift(unittest.TestCase):
             Planck15.differential_comoving_volume(self.zs).value * 4 * np.pi,
             self.zs,
         )
-        self.assertEqual(
-            total_volume,
-            model.total_spacetime_volume(**parameters),
-        )
+        self.assertEqual(total_volume, model.normalisation(parameters))
 
     def test_zero_outside_domain(self):
         model = redshift.PowerLawRedshift(z_max=1)

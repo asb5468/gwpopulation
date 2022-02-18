@@ -2,9 +2,8 @@
 Sensitive volume estimation.
 """
 
-from bilby.hyper.model import Model
-
 import numpy as np
+from bilby.hyper.model import Model
 
 from .cupy_utils import trapz, xp
 from .models.redshift import _Redshift, total_four_volume
@@ -99,7 +98,7 @@ class ResamplingVT(_BaseVT):
         mu, var = self.detection_efficiency(parameters)
         if mu ** 2 <= xp.maximum(4 * self.n_events * var, 30 * var):
             return np.inf
-        n_effective = mu ** 2 / var
+        n_effective = mu**2 / var
         vt_factor = mu / np.exp((3 + self.n_events) / 2 / n_effective)
         return vt_factor
 
@@ -108,8 +107,8 @@ class ResamplingVT(_BaseVT):
         weights = self.model.prob(self.data) / self.data["prior"]
         mu = float(xp.sum(weights) / self.total_injections)
         var = float(
-            xp.sum(weights ** 2) / self.total_injections ** 2
-            - mu ** 2 / self.total_injections
+            xp.sum(weights**2) / self.total_injections**2
+            - mu**2 / self.total_injections
         )
         return mu, var
 
