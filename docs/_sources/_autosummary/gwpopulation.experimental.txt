@@ -30,6 +30,6 @@
    :template: custom-module-template.rst
    :recursive:
 
-   gwpopulation.experimental.jax
-   gwpopulation.experimental.numpyro
+   jax
+   numpyro
 
